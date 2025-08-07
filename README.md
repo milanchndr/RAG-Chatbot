@@ -1,5 +1,7 @@
 # PDF RAG (Retrieval-Augmented Generation) Application
 
+## https://rag-chatbot-jy58.onrender.com
+
 A Flask-based web application that uses FAISS for vector similarity search and Google's Gemini AI to answer questions based on PDF document content.
 
 ## Features

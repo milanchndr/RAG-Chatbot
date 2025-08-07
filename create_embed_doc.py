@@ -13,9 +13,8 @@ genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
 client = genai
 
 
-
 def extract_text(pdf_path):
-    """Extract text and tables from a PDF using PyMuPDF (fitz)."""
+    """Extract text using PyMuPDF"""
     text_chunks = []
 
     doc = fitz.open(pdf_path)
@@ -79,8 +78,24 @@ def create_faiss_index(embeddings,text_chunks):
     return index
 
 if __name__ == "__main__":
-    pdf_path = "D:/Codes/Work/RAG/finance.pdf"
+    print("Starting ingestion process...")
     
-    text_chunks = extract_text(pdf_path)
-    embeddings = embed_chunks(text_chunks, title="finance")
-    faiss_index = create_faiss_index(embeddings)
+    all_text_chunks = []
+    
+    # Read the list of sources 
+    print("Reading data sources from config.py...")
+    for source in config.DATA_SOURCES:
+        print(f"Processing source: {source}")
+        chunks = load_from_source(source)
+        if chunks:
+            all_text_chunks.extend(chunks)
+    
+    print(f"\n--- Ingestion Complete: Total {len(all_text_chunks)} chunks collected ---")
+
+    if all_text_chunks:
+        
+        embeddings = embed_chunks(all_text_chunks, title=config.DOCUMENT_TITLE)
+        
+        if embeddings:
+            create_faiss_index(embeddings, all_text_chunks)
+            print("\nProcessing complete. Unified index has been created.")
