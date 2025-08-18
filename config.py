@@ -3,6 +3,7 @@ DATA_SOURCES = [
     "finance.pdf",
     "https://jsonplaceholder.typicode.com/users",
     "https://en.wikipedia.org/wiki/India",
+    "https://en.wikipedia.org/wiki/South_Asia",
     "https://people.sc.fsu.edu/~jburkardt/data/csv/airtravel.csv"
 ]
 

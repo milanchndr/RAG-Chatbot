@@ -83,7 +83,7 @@ if __name__ == "__main__":
     all_text_chunks = []
     
     # Read the list of sources 
-    print("Reading data sources from config.py...")
+    print("Reading data sources from config...")
     for source in config.DATA_SOURCES:
         print(f"Processing source: {source}")
         chunks = load_from_source(source)
